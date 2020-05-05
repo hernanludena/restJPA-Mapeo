@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/clearTemplate.xhtml">
+	<ui:define name="titulo">Menu</ui:define>
+	<ui:define name="contenido">
+		<h:form id="frmPrincipal">
+
+			<p:inputText value="#{usuarioControlador.usuario.id}" />			
+			<p:commandButton value="Buscar"
+				action="#{usuarioControlador.buscarPrincipales}" update="@form"/>
+
+			<p:panel header="Menu x Usuario">
+				<p:dataTable value="#{usuarioControlador.menues}" var="menu">
+					<p:column headerText="Nombre">
+						<h:outputText value="#{menu.nombre}" />
+					</p:column>
+					<p:column headerText="Visible">
+						<h:outputText value="#{menu.visible}" />
+					</p:column>
+					<p:column headerText="URL">
+						<h:outputText value="#{menu.url}" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+</html>

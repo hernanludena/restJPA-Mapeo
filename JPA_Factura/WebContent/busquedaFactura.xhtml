@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/clearTemplate.xhtml">
+	<ui:define name="titulo">Producto</ui:define>
+	<ui:define name="contenido">
+		<h:form>
+			<p:panelGrid columns="4">
+				<h:outputText value="Cod. Factura: " />
+				<p:inputText value="#{busquedaFacturaControlador.codFactura}"></p:inputText>
+				<p:commandButton value="Buscar"
+					action="#{busquedaFacturaControlador.buscarFactura}" update="@form"></p:commandButton>
+				<p:commandButton value="Buscar Join"
+					action="#{busquedaFacturaControlador.buscarFacturaJoin}"
+					update="@form"></p:commandButton>
+			</p:panelGrid>
+
+			<p:panel>
+				<p:panelGrid columns="2">
+
+					<h:outputText value="Código: " />
+					<h:outputText value="#{busquedaFacturaControlador.factura.codigo}" />
+					<h:outputText value="Cliente: " />
+					<h:outputFormat
+						value="#{busquedaFacturaControlador.factura.cliente.nombre} - #{busquedaFacturaControlador.factura.cliente.apellido}" />
+				</p:panelGrid>
+
+				<p:dataTable value="#{busquedaFacturaControlador.factura.detalles}"
+					var="detalles">
+					<p:column headerText="Código">
+						<h:outputText value="#{detalles.codigo}" />
+					</p:column>
+					<p:column headerText="Cantidad">
+						<h:outputText value="#{detalles.cantidad}" />
+					</p:column>
+					<p:column headerText="Producto">
+						<h:outputText value="#{detalles.producto.nombre}" />
+					</p:column>				
+				</p:dataTable>
+				<br />
+			<p:commandButton value="Eliminar" action="#{busquedaFacturaControlador.eliminar()}" update="@form"/>
+				
+				
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

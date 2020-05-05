@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+		<h:form>
+		<h1>DEPARTAMENTOS</h1>
+		<h:panelGrid columns="2">
+			<h:outputText value="id" />
+			<h:inputText value="#{departamentoControlador.departamento.id}" />
+			
+			<h:outputText value="nombre" />
+			<h:inputText value="#{departamentoControlador.departamento.nombre}" />
+			
+		</h:panelGrid>
+		<h:commandButton action="#{departamentoControlador.insertar}" value="Insertar" />
+		<h:commandButton action="#{departamentoControlador.recuperar}" value="Consulta" />
+		<h:commandButton action="#{departamentoControlador.buscarPorId}" value="DepartamentoPorId" />
+		<h:commandButton action="#{departamentoControlador.actualizar}" value="Modificar" />
+		<h:commandButton action="#{departamentoControlador.insertarDepartamentoEmpleado()}" value="InsertarTodos" />
+	
+	</h:form>
+</html>

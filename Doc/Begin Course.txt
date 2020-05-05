@@ -1,0 +1,103 @@
+C:\Installers\jboss-as-7.1.1.Final\jboss-as-7.1.1.Final\bin
+
+
+JBOSS: 
+cmd/ bin/standalone
+control + c /detenjer jboss
+
+pass postgress: root
+
+Contenedor - instancia los servicios y el entiy manager
+
+inyeccion de codigo - @PersistenceContext
+
+---crear y configurar datasource en el archivo "standalone" de jboss---
+
+ <datasource jta="false" jndi-name="java:/cursojpa" pool-name="jpa" enabled="true" use-ccm="false">                   
+ <connection-url>jdbc:postgresql://localhost:5432/jpa</connection-url> 
+ <driver-class>org.postgresql.Driver</driver-class>  
+ <driver>postgresql-9.2-1004.jdbc3.jar</driver>  
+ <security>                       
+    <user-name>postgres</user-name>                      
+    <password>root</password>                    
+ </security>                
+ </datasource>
+ 
+ --otro ejemplo de datasource--
+ <datasource jta="false" jndi-name="java:/cursojpatrx" pool-name="jpa_transacciones" enabled="true" spy="true" use-ccm="false">
+                    <connection-url>jdbc:postgresql://localhost:5432/jpa_transacciones</connection-url>
+                    <driver-class>org.postgresql.Driver</driver-class>
+                    <driver>postgresql-9.2-1004.jdbc3.jar</driver>
+                    <security>
+                        <user-name>postgres</user-name>
+                        <password>root</password>
+                    </security>
+ </datasource>
+
+//localhost:5432/jpa_transacciones ---->nombre de la base
+.war (aplicacion web,paginas,etc)
+.jar (.class)
+
+
+para publicar una aplicacion coloco los .war en la carpeta deplyments
+- tareas ant  (realizar pasos auto)
+- detener servidor y ejecutar ant.
+- se deben de generar sin errores el mapeoEntidades.war.deployed y el postgresql-9.2-1004.jdbc3.jar.deployed de la
+carpeta C:\Installers\jboss-as-7.1.1.Final\jboss-as-7.1.1.Final\standalone\deployments
+
+- hibernate-- es el manejador de persistencia en JPA
+- EJB - manejan la logica del negocio  (@Stateless--> @StatelessSessionBean)  es un SessionBean
+el contenedor maneja @StatelessSessionBean
+manejar transaccionalidad, concurrencia,pool de conexiones,seguridades -->servidor de aplicaciones
+
+EntityManager maneja el crud para interactuar con la base(find,etc)
+<persistence-unit name="cmd">  en el percistence puedo tener varias unidades de persistencia
+
+@ManagedBean  - objeto de la capa de presentacion manejado por el contenedor (no hacemos ningun new)
+se comunica con la pagina - permite comunicar los metodos con la pagina
+
+@EJB - inyeccion de codigo
+
+--Mapeo de relaciones--
+FetchType: EAGER - auto trae objetos de relacion (emp+dep)
+           LAZY - trae dep, pero no colleccion de emp; solo si le pido la coleccion  (failed to lazily initialize collection)--> se da porque esta el LAZY x default
+
+ManyToOne -->por defautl es eager		  
+OneToMany --> por default es lazy
+
+NO es bueno hacer EAGER, es mejor realizar la implementacion en la capa del entitymanager
+
+-- cuando cambio un objeto(set) cuando es manejado por el entitymanager se actualiza automaticamente, sin necesidad de hacer merge.
+//--NO SE CREA ATRIBUTO PARA LA CLAVE FORANEA, SE DEBE CREAR UNA RELACION PARA INDICAR LA CLAVE FORANEA.
+
+
+save the transient instance before flushing: cursos.jpa.entidades.Menu.menuPadre -> cursos.jpa.entidades.Menu  ----->> error cuando no existe el objeto
+
+--standalone.xml--
+ <suffix value=".yyyy-MM-dd-HH"/>  --generar log cada hora en JBOSS
+ nivel de log; trace,debuginfo
+ 
+ 			<logger category="org.hibernate.type.descriptor.sql.BasicBinder">                
+				<level name="TRACE"/>           
+			</logger> 
+
+---CLAVE FORENEA -se debe crera una nueva clase, con los atributos que son PK en cada clase.		
+--criteriaAPI			
+//Query query= em.createNativeQuery(arg0);  //SQL nativo
+    	Query query= em.createNamedQuery("buscarPorRango");	 //sentencias creadas
+		
+		
+--TRANSACCIONALIDAD---
+Facade (patrón de diseño)
+El patrón Facade sirve para proveer de una interfaz unificada sencilla que haga de intermediaria entre un cliente y una interfaz o grupo de interfaces más complejas
+
+//hay q configuarar el jboss la transaccionalidad <datasource jta="true"
+//para que soporte el rollback, cuando falla una operacion
+
+Todos los EJB, tienen un atributo de transaccion de tipo required
+@TransactionAttribute(TransactionAttributeType.REQUIRED)//Todos los EJB, tienen un atributo de transaccion de tipo required
+@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)  //Crea siempre una nueva transaccion.
+
+--los inserts se ejecutan primero
+--el merge se actualiza al salir del metodo
+--flush(se ejecutan los pendientes,luego de hacer el update)

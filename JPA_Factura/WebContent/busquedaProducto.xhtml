@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/clearTemplate.xhtml">
+	<ui:define name="titulo">Producto</ui:define>
+	<ui:define name="contenido">
+		<h:form id="busq">
+			<p:commandButton value="Buscar Todos"
+				action="#{busquedaProductoControlador.buscarTodos}" update="@form"></p:commandButton>
+			<p:commandButton value="Buscar Ligero"
+				action="#{busquedaProductoControlador.buscarLigero}" update="@form"></p:commandButton>
+				<p:commandButton value="BuscarPorLotes4"
+				action="#{busquedaProductoControlador.buscarTodosPorLotes}" update="@form"></p:commandButton>
+			<p:dataTable value="#{busquedaProductoControlador.productos}"
+				var="prod"
+				rendered="#{empty busquedaProductoControlador.productosLigero}">
+				<p:column headerText="Código">
+					<h:outputText value="#{prod.codigo}" />
+				</p:column>
+				<p:column headerText="Categoría">
+					<h:outputText value="#{prod.categoria.nombre}" />
+				</p:column>
+				<p:column headerText="Nombre">
+					<h:outputText value="#{prod.nombre}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Impuesto</f:facet>
+					<h:outputText value="#{prod.impuesto==true?'Sí':'No'}" />
+				</p:column>
+				<p:column headerText="Precio Venta">
+					<h:outputText value="#{prod.precioVenta}" />
+				</p:column>
+			</p:dataTable>
+
+			<p:dataTable value="#{busquedaProductoControlador.productosLigero}"
+				var="prod" rendered="#{empty busquedaProductoControlador.productos}">
+				<p:column headerText="Código">
+					<h:outputText value="#{prod.codigo}" />
+				</p:column>
+				<p:column headerText="Nombre">
+					<h:outputText value="#{prod.nombre}" />
+				</p:column>
+				<p:column headerText="Precio">
+					<h:outputText value="#{prod.precioVenta}" />
+				</p:column>
+			</p:dataTable>
+
+			<br />
+			<p:commandButton value="Productos x Cliente"
+				action="#{busquedaProductoControlador.consultarProdPorCliente()}"
+				update="@form" />
+				
+				
+				<h:inputText value="#{busquedaProductoControlador.cliente.cedula}" />
+				<br />
+				<p:dataTable value="#{busquedaProductoControlador.productosCliente}"
+				var="prod">
+				
+				<p:column headerText="Codigo">
+					<h:outputText value="#{prod.codigo}" />
+				</p:column>
+				
+				<p:column headerText="Nombre">
+					<h:outputText value="#{prod.nombre}" />
+				</p:column>
+				
+				<p:column headerText="Precio">
+					<h:outputText value="#{prod.precioVenta}" />
+				</p:column>
+				
+			</p:dataTable>
+				
+				
+				
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

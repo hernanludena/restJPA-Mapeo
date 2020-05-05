@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form>
+		<h1>ROL</h1>
+		<h:panelGrid columns="2">
+			<h:outputText value="id" />
+			<h:inputText value="#{rolControlador.rol.rol}" />
+			
+			<h:outputText value="nombre" />
+			<h:inputText value="#{rolControlador.rol.descripcion}" />
+		
+			<h:outputText value="filial" />
+			<h:inputText value="#{rolControlador.rol.filial}" />
+			
+		
+		</h:panelGrid>
+		<h:commandButton value="Insertar" action="#{rolControlador.insertar}" />
+		
+		
+	</h:form>
+</html>

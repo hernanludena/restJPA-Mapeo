@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/templates/clearTemplate.xhtml">
+	<ui:define name="titulo">Facturacion</ui:define>
+	<ui:define name="contenido">
+		<h:form id="frmPrincipal">
+			<p:panel header="Clientes">
+
+				<p:commandButton value="Consultar"
+					action="#{buscarClienteControlador.consultar}" update="tabla"></p:commandButton>
+				<p:dataTable id="tabla" value="#{buscarClienteControlador.clientes}"
+					var="cliente">
+
+					<p:column headerText="Cedula">
+						<h:outputText value="#{cliente.cedula}" />
+					</p:column>
+
+					<p:column headerText="Nombre">
+						<h:outputText value="#{cliente.nombre}" />
+					</p:column>
+
+					<p:column headerText="Apellido">
+						<h:outputText value="#{cliente.apellido}" />
+					</p:column>
+
+					<p:column headerText="Telefono">
+						<h:outputText value="#{cliente.telefono}" />
+					</p:column>
+
+
+					<p:column headerText="Direccion">
+						<h:outputText value="#{cliente.direccion}" />
+					</p:column>
+				</p:dataTable>
+
+				<p:commandButton value="Anterior" update="tabla"
+					action="#{buscarClienteControlador.anterior}"></p:commandButton>
+
+				<p:commandButton value="Siguiente" update="tabla"
+					action="#{buscarClienteControlador.siguiente}"></p:commandButton>
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>

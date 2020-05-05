@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form>
+		<h1>MENU COBIS</h1>
+		<h:panelGrid columns="2">
+			<h:outputText value="id" />
+			<h:inputText value="#{menuControladorCobis.menu.id}" />
+			
+			<h:outputText value="nombre" />
+			<h:inputText value="#{menuControladorCobis.menu.nombre}" />
+			
+			<h:outputText value="id del Padre:" />
+			<h:inputText value="#{menuControladorCobis.idPadre}" />
+		
+		</h:panelGrid>
+		<h:commandButton value="Insertar Menu" action="#{menuControladorCobis.insertarMenu}" />
+		<h:commandButton value="Insertar Root" action="#{menuControladorCobis.insertarRoot}" />
+		
+	</h:form>
+</html>

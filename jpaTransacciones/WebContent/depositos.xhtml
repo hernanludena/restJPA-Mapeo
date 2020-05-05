@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+<h:form>
+	<h:panelGrid columns="2">
+		<h:outputText value="Nro. cuenta" />
+		<h:inputText value="#{depositoControlador.numeroCuenta}" />
+		<h:outputText value="monto" />
+		<h:inputText value="#{depositoControlador.monto}" />
+	</h:panelGrid>
+	<h:commandButton action="#{depositoControlador.depositar}" value="Depositar" />
+	<h:commandButton action="#{depositoControlador.depositarConAuditoria}" value="DepositarConAuditoria" />
+	
+	<h:commandButton action="#{depositoControlador.registrar}" value="DepositarDesdeControlador" />
+	<h:commandButton action="#{depositoControlador.buscarPorSaldo}" value="BuscarPorSaldo" />
+	<h:commandButton action="#{depositoControlador.depositarConComprobacion}" value="DepositarConComprobacion" />
+	<h:commandButton action="#{depositoControlador.buscarTodos}" value="BuscarTodos" />
+	
+	<h:commandButton action="#{depositoControlador.retirar}" value="Retirar" />
+	<h:commandButton action="#{depositoControlador.transferir}" value="Transferir" />
+	
+	<h:commandButton action="#{depositoControlador.depositarBMT}" value="DepositarBMT" />
+
+</h:form>
+</html>

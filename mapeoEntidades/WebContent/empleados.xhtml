@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form>
+		<h1>EMPLEADOS</h1>
+		<h:panelGrid columns="2">
+			<h:outputText value="id" />
+			<h:inputText value="#{empleadoControlador.empleado.id}" />
+			
+			<h:outputText value="nombre" />
+			<h:inputText value="#{empleadoControlador.empleado.nombre}" />
+			
+			<h:outputText value="apellido" />
+			<h:inputText value="#{empleadoControlador.empleado.apellido}" />		
+		</h:panelGrid>
+		<h:commandButton action="#{empleadoControlador.insertar}" value="Insertar" />
+		<h:commandButton action="#{empleadoControlador.recuperar}" value="Consulta" />		
+		
+	</h:form>
+</html>

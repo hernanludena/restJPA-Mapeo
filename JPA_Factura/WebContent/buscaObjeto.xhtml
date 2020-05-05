@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/templates/clearTemplate.xhtml">
+	<ui:define name="titulo">Facturacion</ui:define>
+	<ui:define name="contenido">
+		<h:form id="frmPrincipal">
+			<p:panel header="Productos">
+
+				<h:outputText value="Codigo :" />
+				<p:inputText value="#{buscarObjetoControlador.nombre}"></p:inputText>
+				<h:panelGrid columns="3">
+					<p:commandButton value="Consultar"
+						action="#{buscarObjetoControlador.buscarObjeto}"></p:commandButton>
+
+					<p:commandButton value="Consultar Lista"
+						action="#{buscarObjetoControlador.buscarListaObjetos}"></p:commandButton>
+
+					<p:commandButton value="Consultar Lista sin Objeto"
+						action="#{buscarObjetoControlador.buscarObjetos}"></p:commandButton>
+				</h:panelGrid>
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>

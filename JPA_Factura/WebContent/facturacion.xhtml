@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/templates/clearTemplate.xhtml">
+	<ui:define name="titulo">Facturacion</ui:define>
+	<ui:define name="contenido">
+		<h:form id="frmPrincipal">
+			<p:panel header="Datos Factura">
+				<h:panelGrid columns="4">
+					<h:outputText value="Nª Factura:" />
+					<p:inputText value="#{facturaControlador.factura.codigo}" />
+					<h:outputText value="Fecha" />
+					<p:calendar value="#{facturaControlador.factura.fecha}" />
+				</h:panelGrid>
+			</p:panel>
+
+			<p:panel header="Cliente" id="frm1">
+				<h:panelGrid columns="3">
+					<h:outputText value="Ingrese la cédula:" />
+					<p:inputText value="#{facturaControlador.cedulaBusquedaCliente}" />
+					<p:commandButton
+						action="#{facturaControlador.buscarClientePorCedula}"
+						value="Buscar" update="pnlCliente" />
+
+					<h:outputText value="Ingrese el apellido:" />
+					<p:inputText value="#{facturaControlador.cadenaBusquedaCliente}" />
+					<p:commandButton
+						action="#{facturaControlador.buscarClientePorApellido}"
+						value="Buscar" update=":dlgClientes"
+						onclick="dialogoClientes.show()" />
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="6" id="pnlCliente">
+					<h:outputText value="Cédula:" />
+					<p:inputText value="#{facturaControlador.cliente.cedula}"
+						disabled="true" />
+
+					<h:outputText value="Nombre:" />
+					<p:inputText value="#{facturaControlador.cliente.nombre}"
+						disabled="true" />
+
+					<h:outputText value="Apellido:" />
+					<p:inputText value="#{facturaControlador.cliente.apellido}"
+						disabled="true" />
+
+					<h:outputText value="Dirección:" />
+					<p:inputText value="#{facturaControlador.cliente.direccion}"
+						disabled="true" />
+
+					<h:outputText value="Teléfono:" />
+					<p:inputText value="#{facturaControlador.cliente.telefono}"
+						disabled="true" />
+
+				</h:panelGrid>
+			</p:panel>
+
+			<p:panel header="Agregar Producto" id="frm2">
+				<h:panelGrid columns="3">
+					<h:outputText value="Código:" />
+					<p:inputText value="#{facturaControlador.codigoBusquedaProducto}" />
+					<p:commandButton
+						action="#{facturaControlador.buscarProductoPorCodigo()}"
+						value="Buscar" update="frmPrincipal:pnlProducto" />
+				</h:panelGrid>
+
+				<h:panelGrid id="pnlProducto" columns="4">
+					<h:outputText value="Código:" />
+					<p:inputText value="#{facturaControlador.producto.codigo}"
+						disabled="true" />
+					<h:outputText value="Nombre:" />
+					<p:inputText value="#{facturaControlador.producto.nombre}"
+						disabled="true" />
+					<h:outputText value="Precio:" />
+					<p:inputText value="#{facturaControlador.producto.precioVenta}"
+						disabled="true" />
+					<h:outputText value="Cantidad:" />
+					<p:inputText value="#{facturaControlador.cantidad}" />
+				</h:panelGrid>
+				<p:commandButton action="#{facturaControlador.agregarDetalle}"
+					value="Agregar" update="pnlDetalle" />
+				<p:panel id="pnlDetalle">
+					<p:dataTable value="#{facturaControlador.detalles}"
+						var="itemDetalle">
+						<p:column headerText="CODIGO">
+							<h:outputText value="#{itemDetalle.producto.codigo}" />
+						</p:column>
+						<p:column headerText="NOMBRE">
+							<h:outputText value="#{itemDetalle.producto.nombre}" />
+						</p:column>
+						<p:column headerText="PRECIO">
+							<h:outputText value="#{itemDetalle.producto.precioVenta}" />
+						</p:column>
+						<p:column headerText="SUBTOTAL">
+							<h:outputText value="#{itemDetalle.subTotal}">
+								<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+							</h:outputText>
+						</p:column>
+					</p:dataTable>
+					<div align="right">
+						<p:panelGrid columns="2">
+							<h:outputText value="Total" />
+							<h:outputText value="#{facturaControlador.factura.total}">
+								<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+							</h:outputText>
+							
+							<h:outputText value="Total IVA" />
+							<h:outputText value="#{facturaControlador.factura.totalIva}">
+								<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+							</h:outputText>
+						</p:panelGrid>
+					</div>
+
+					<p:commandButton value="Guardar Factura"
+						action="#{facturaControlador.guardarFactura}" />
+				</p:panel>
+			</p:panel>
+		</h:form>
+
+		<p:dialog widgetVar="dialogoClientes">
+			<h:form id="dlgClientes">
+				<p:dataTable value="#{facturaControlador.clientes}"
+					var="clienteItem">
+					<p:column headerText="Cédula">
+						<h:outputText value="#{clienteItem.cedula}" />
+					</p:column>
+					<p:column headerText="Nombre">
+						<h:outputText
+							value="#{clienteItem.nombre} #{clienteItem.apellido}" />
+					</p:column>
+					<p:column headerText="Acciones">
+						<p:commandButton value="Elegir" update=":frmPrincipal:pnlCliente"
+							onsuccess="dialogoClientes.hide()">
+							<f:setPropertyActionListener
+								target="#{facturaControlador.cliente}" value="#{clienteItem}"></f:setPropertyActionListener>
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+
+</ui:composition>
+</html>

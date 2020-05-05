@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form>
+		<h1>MENU</h1>
+		<h:panelGrid columns="2">
+			<h:outputText value="id" />
+			<h:inputText value="#{menuControlador.menu.id}" />
+			
+			<h:outputText value="nombre" />
+			<h:inputText value="#{menuControlador.menu.nombre}" />
+			
+			<h:outputText value="nivel" />
+			<h:inputText value="#{menuControlador.menu.nivel}" />
+			
+			<h:outputText value="id del Padre" />
+			<h:inputText value="#{menuControlador.idPadre}" />	
+		
+		</h:panelGrid>
+		<h:commandButton value="Insertar Root" action="#{menuControlador.insertarRoot}" />
+		<h:commandButton value="Insertar Root" action="#{menuControlador.insertarMenu}" />
+		<h:commandButton value="Insertar Menu" action="#{menuControlador.insertarMenu2}" />
+		<h:commandButton value="Consultar Nulls" action="#{menuControlador.buscarNivelRoot}" />
+		
+		
+		
+	</h:form>
+</html>
